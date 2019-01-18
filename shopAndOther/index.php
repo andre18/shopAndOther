@@ -20,7 +20,8 @@ $replacement = 'Month: $2, Day: $1, Year: $3';
 //Подключение файлов системы
 define('ROOT', dirname(__FILE__));
 //echo __FILE__;
-require_once (ROOT.'/Components/Autoload.php');
+require_once (ROOT.'/components/Autoload.php');
+//echo ROOT.'/components/Autoload.php';
 //require_once (ROOT.'/Core/Router.php');
 //require_once (ROOT.'/Components/Db.php');
 

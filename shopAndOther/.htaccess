@@ -7,3 +7,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^(.*)$ index.php
+#RewriteRule ^public/(.*)$ public?q=$1 [L,QSA]
