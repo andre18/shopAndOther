@@ -20,12 +20,35 @@
 <script>
     $(document).ready(function() {
         $(".add-to-cart").click(function () {
+
             var id = $(this).attr("data-id");
+
             $.post("/cart/addAjax/"+id, {}, function (data) {
                 $("#cart-count").html(data);
             });
+
             return false;
-        })
+        });
+
+        $(".cartdelete1").click(function () {
+
+            let id = $(this).attr("data-id");
+
+            $.post("/cart/deleteAjax/"+id, {}, function (data) {
+
+                let {cartCount, deleteRow, productCount} = JSON.parse(data);
+
+                $("#cart-count").html(cartCount);
+
+                if (deleteRow !== -1) {
+                    $("tr#product-"+id).remove();
+                } else {
+                    $("td#product-count-"+id).html(productCount);
+                }
+            });
+
+            return false;
+        });
     })
 </script>
 </body>

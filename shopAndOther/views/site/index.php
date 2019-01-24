@@ -31,7 +31,7 @@
                                         <img src="/template/images/home/product1.jpg" alt="" />
                                         <h2><?php echo $product['price']?> грн</h2>
                                         <p><a href="/product/<?php echo $product['id']?>"><?php echo $product['name']?></a></p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
+                                        <a data-id="<?php echo $product['id']?>" href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
                                     </div>
                                     <?php if ($product['is_new'] != 1):?>
                                         <img src="/template/images/home/new.png" class="new" alt="">

@@ -34,17 +34,19 @@
                             <th>Название</th>
                             <th>Стоимость, грн</th>
                             <th>Количество, шт</th>
+                            <th>Удалить</th>
                         </tr>
                         <?php foreach ($products as $product): ?>
-                        <tr>
+                        <tr id="product-<?php echo $product['id'] ?>">
                             <td><?php echo $product['code']?></td>
                             <td>
-                                <a href="/product/<?=$product['id']?>">
+                                <a href="/product/<?php echo $product['id']?>">
                                     <?php echo $product['name']?>
                                 </a>
                             </td>
                             <td><?php echo $product['price']?></td>
-                            <td><?php echo $productsInCart[$product['id']]?></td>
+                            <td id="product-count-<?php echo $product['id'] ?>"><?php echo $productsInCart[$product['id']]?></td>
+                            <td><a data-id="<?php echo $product['id']; ?>" class="btn btn-default cartdelete1"  href="#"></a></td>
                         </tr>
                         <?php endforeach; ?>
                         <tr>
@@ -60,3 +62,5 @@
         </div>
     </div>
 </section>
+
+<?php include ROOT.'/views/layouts/footer.php'; ?>

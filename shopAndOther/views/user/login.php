@@ -20,6 +20,7 @@
                             <input type="password" name="password" placeholder="Пароль" value="<?php echo $password?>"/>
                             <input type="submit" name="submit" class="btn btn-default" value="Вход">
                         </form>
+                        <a href="/user/register">Зарегистрироваться</a>
                     </div><!--/sign up form-->
                 </div>
             </div>

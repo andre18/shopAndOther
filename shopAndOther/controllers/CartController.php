@@ -24,6 +24,15 @@ class CartController
         return true;
     }
 
+    public function actionDeleteAjax($id) {
+        echo Cart::deleteProduct($id);
+        return true;
+    }
+
+    public function actionOne($id) {
+        echo 'work '.$id;
+    }
+
     public function actionIndex() {
         $categories = array();
         $categories = Category::getCategoriesList();

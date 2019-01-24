@@ -18,6 +18,7 @@ return array(
     'cart/add/([0-9]+)' => 'cart/add/$1',
 
     'cart/addAjax/([0-9]+)' => 'cart/addAjax/$1',
+    'cart/deleteAjax/([0-9]+)' => 'cart/deleteAjax/$1',
     'cart' => 'cart/index',
 
     'user/register' => 'user/register',
@@ -26,6 +27,8 @@ return array(
 
     'cabinet/edit' => 'cabinet/edit',
     'cabinet' => 'cabinet/index',
+
+    'admin' => 'admin/index',
 
     '' => 'site/index',
 );

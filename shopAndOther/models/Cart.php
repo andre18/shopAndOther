@@ -34,6 +34,38 @@ class Cart
         return self::countItems();
     }
 
+    public static function deleteProduct($id) {
+        $id = intval($id);
+
+        //Берем все товары из корзины
+        $productsInCart = $_SESSION['products'];
+
+        //Удаляем товар, выбранный клиентом
+        $productsInCart[$id]--;
+
+        //Удаляемая строка
+        $deleteRow = -1;
+        //Кол-во продукта выбранного товара
+        $productCount = 0;
+
+        //Если был удален последний товар с выбранным id из корзины,
+        //удаляем его из массива $productsInCart
+        if ($productsInCart[$id] == 0) {
+            $deleteRow = $productsInCart[$id];
+            unset($productsInCart[$id]);
+        } else {
+            $productCount = $productsInCart[$id];
+        }
+
+        //Перезаписываем сессию обновленными данными
+        $_SESSION['products'] = $productsInCart;
+
+        //Записываем json строку, которую передадим в ответе ajax запросу
+        $info = json_encode(array('cartCount' => self::countItems(), 'deleteRow' => $deleteRow, 'productCount' => $productCount));
+
+        return $info;
+    }
+
     public static function getProducts() {
         if (isset($_SESSION['products'])) {
             return $_SESSION['products'];
