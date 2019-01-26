@@ -47,6 +47,10 @@ class Cart
         $deleteRow = -1;
         //Кол-во продукта выбранного товара
         $productCount = 0;
+        //Информация о товаре
+//        $product = Product::getProductById($id)['price'];
+        //Цена товара
+        $price = Product::getProductById($id)['price'];
 
         //Если был удален последний товар с выбранным id из корзины,
         //удаляем его из массива $productsInCart
@@ -61,7 +65,7 @@ class Cart
         $_SESSION['products'] = $productsInCart;
 
         //Записываем json строку, которую передадим в ответе ajax запросу
-        $info = json_encode(array('cartCount' => self::countItems(), 'deleteRow' => $deleteRow, 'productCount' => $productCount));
+        $info = json_encode(array('cartCount' => self::countItems(), 'deleteRow' => $deleteRow, 'productCount' => $productCount, 'productPrice' => $price));
 
         return $info;
     }

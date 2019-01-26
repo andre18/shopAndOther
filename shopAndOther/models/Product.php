@@ -115,4 +115,112 @@ class Product
 
         return $products;
     }
+
+    public static function getProductsList() {
+
+        $db = Db::getConnection();
+
+        //Получение и возврат результатов
+        $result = $db->query("SELECT id, name, price, code FROM product ORDER BY id ASC");
+        $productsList = array();
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $productsList[$i]['id'] = $row['id'];
+            $productsList[$i]['name'] = $row['name'];
+            $productsList[$i]['price'] = $row['price'];
+            $productsList[$i]['code'] = $row['code'];
+            $i++;
+        }
+
+        return $productsList;
+    }
+
+    /**
+     * Добавляет новый товар
+     * @param array $option <p>Массив с информацией о товаре</p>
+     * @return int <p>id добавленной в таблицу записи</p>
+     */
+    public static function createProduct($option) {
+
+        $db = Db::getConnection();
+
+        $sql = "INSERT INTO product "
+            ."(name, code, price, category_id, brand, availability, description, is_new, is_recommended, status) VALUE "
+            ."(:name, :code, :price, :category_id, :brand, :availability, :description, :is_new, :is_recommended, :status)";
+
+        //Получение и возврат результатов. Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(":name", $option['name'], PDO::PARAM_STR);
+        $result->bindParam(":code", $option['code'], PDO::PARAM_INT);
+        $result->bindParam(":price", floatval($option['price']), PDO::PARAM_STR);
+        $result->bindParam(":category_id", $option['category_id'], PDO::PARAM_INT);
+        $result->bindParam(":brand", $option['brand'], PDO::PARAM_STR);
+        $result->bindParam(":availability", $option['availability'], PDO::PARAM_INT);
+        $result->bindParam(":description", $option['description'], PDO::PARAM_STR);
+        $result->bindParam(":is_new", $option['is_new'], PDO::PARAM_INT);
+        $result->bindParam(":is_recommended", $option['is_recommended'], PDO::PARAM_INT);
+        $result->bindParam(":status", $option['status'], PDO::PARAM_INT);
+        if ($result->execute()) {
+//            echo "eeeeeeeeeeeeee";
+//            die();
+            //Если запрос выполнен успешно, возвращаем id добавленной записи
+            return $db->lastInsertId();
+        }
+
+        //Иначе возвращаем 0
+        return 0;
+    }
+
+    /**
+     * Обновляет данные существующего товара
+     * @param $id <p>id редактируемой записи</p>
+     * @param array $option <p>Массив с обновленной информацией о товаре</p>
+     * @return boolean <p>id добавленной в таблицу записи</p>
+     */
+    public static function updateProduct($id, $option) {
+
+        $db = Db::getConnection();
+
+        $sql = "INSERT INTO product "
+            ."(name, code, price, category_id, brand, availability, description, is_new, is_recommended, status) VALUE "
+            ."(:name, :code, :price, :category_id, :brand, :availability, :description, :is_new, :is_recommended, :status)";
+
+        $sql = "UPDATE product SET "
+            ."name = :name, code = :code, price = :price, category_id = :category_id, brand = :brand, "
+            ."availability = :availability, description = :description, is_new = :is_new, "
+            ."is_recommended = :is_recommended, status = :status WHERE id = :id";
+
+        //Получение и возврат результатов. Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(":id", $id, PDO::PARAM_STR);
+        $result->bindParam(":name", $option['name'], PDO::PARAM_STR);
+        $result->bindParam(":code", $option['code'], PDO::PARAM_INT);
+        $result->bindParam(":price", floatval($option['price']), PDO::PARAM_STR);
+        $result->bindParam(":category_id", $option['category_id'], PDO::PARAM_INT);
+        $result->bindParam(":brand", $option['brand'], PDO::PARAM_STR);
+        $result->bindParam(":availability", $option['availability'], PDO::PARAM_INT);
+        $result->bindParam(":description", $option['description'], PDO::PARAM_STR);
+        $result->bindParam(":is_new", $option['is_new'], PDO::PARAM_INT);
+        $result->bindParam(":is_recommended", $option['is_recommended'], PDO::PARAM_INT);
+        $result->bindParam(":status", $option['status'], PDO::PARAM_INT);
+        return $result->execute();
+    }
+
+    /**
+     * Удаляет товар с указанным id
+     * @param integer $id <p>id товара</p>
+     * @return bool <p>Результат выполнения метода</p>
+     */
+    public static function deleteProductById($id) {
+        echo $id;
+
+        $db = Db::getConnection();
+
+        $sql = "DELETE FROM product WHERE id = :id";
+
+        //Получение и возврат результатов. Используется готовый запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(":id", $id, PDO::PARAM_INT);
+        return $result->execute();
+    }
 }

@@ -18,8 +18,9 @@ class User
          $result->bindParam(':name', $name, PDO::PARAM_STR);
          $result->bindParam(':email', $email, PDO::PARAM_STR);
          $result->bindParam(':password', $password, PDO::PARAM_STR);
+         $result->execute();
 
-         return $result->execute();
+         return self::checkUserData($email, $password);
      }
 
      public static function checkName($name) {

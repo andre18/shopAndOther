@@ -2,8 +2,8 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2015</p>
-                <p class="pull-right">Курс PHP Start</p>
+                <p class="pull-left">Copyright © 2019</p>
+                <p class="pull-right">Learning PHP Base</p>
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
 
             $.post("/cart/deleteAjax/"+id, {}, function (data) {
 
-                let {cartCount, deleteRow, productCount} = JSON.parse(data);
+                let {cartCount, deleteRow, productCount, productPrice} = JSON.parse(data);
 
                 $("#cart-count").html(cartCount);
 
@@ -45,6 +45,9 @@
                 } else {
                     $("td#product-count-"+id).html(productCount);
                 }
+
+                let totalPrice = $("#total-price").text();
+                $("#total-price").html(totalPrice*1 - productPrice);
             });
 
             return false;

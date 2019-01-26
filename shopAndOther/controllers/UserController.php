@@ -37,7 +37,15 @@ class UserController
             }
 
             if ($errors == false) {
-                $result = User::register($name, $email, $password);
+                //При успешной регстрации:
+                //Добавляем данные пользователя в БД
+                $userId = User::register($name, $email, $password);
+
+                //Запоминаем пользователя (сессия)
+                User::auth($userId);
+
+                //Перенаправляем пользователя в закрытую часть - кабинет
+                header("Location: /cabinet/");
             }
         }
 

@@ -46,12 +46,12 @@
                             </td>
                             <td><?php echo $product['price']?></td>
                             <td id="product-count-<?php echo $product['id'] ?>"><?php echo $productsInCart[$product['id']]?></td>
-                            <td><a data-id="<?php echo $product['id']; ?>" class="btn btn-default cartdelete1"  href="#"></a></td>
+                            <td><a data-id="<?php echo $product['id']; ?>" class="fa fa-times cartdelete1"  href="#"></a></td>
                         </tr>
                         <?php endforeach; ?>
                         <tr>
                             <td colspan="3">Общая стоимость:</td>
-                            <td><?php echo $totalPrice?></td>
+                            <td id="total-price"><?php echo $totalPrice?></td>
                         </tr>
                     </table>
                     <?php else: ?>
